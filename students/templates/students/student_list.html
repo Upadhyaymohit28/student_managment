@@ -5,8 +5,16 @@
 </head>
 <body>
     <h1>Student List</h1>
+
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'student_list' %}">
+        <input type="text" name="q" placeholder="Search by name..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display Students -->
     <ul>
-        {% for student in students %}
+        {% for student in page_obj %}
             <li>
                 <a href="{% url 'student_detail' student.id %}">
                     {{ student.first_name }} {{ student.last_name }}
@@ -14,6 +22,23 @@
             </li>
         {% endfor %}
     </ul>
+
+    <!-- Pagination Controls -->
+    <div>
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    </div>
+
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+
+    <!-- Link to Add New Student -->
     <a href="{% url 'add_student' %}">Add New Student</a>
 </body>
 </html>
