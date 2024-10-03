@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Student  # Import the Student model
 from .forms import StudentForm  # Import the StudentForm
 from django.core.paginator import Paginator  # Import Paginator for pagination
+from django.http import Http404
+from django.shortcuts import render
 
 # View to display the list of students with search and pagination functionality
 def student_list(request):
@@ -48,3 +50,22 @@ def edit_student(request, student_id):
     else:
         form = StudentForm(instance=student)  # Render form pre-filled with student's information
     return render(request, 'students/edit_student.html', {'form': form})
+
+def student_detail(request, student_id):
+    try:
+        student = Student.objects.get(pk=student_id)
+    except Student.DoesNotExist:
+        raise Http404("Student not found.")
+    return render(request, 'students/student_detail.html', {'student': student})
+
+def custom_404(request, exception):
+    """
+    Custom handler for 404 errors (Page Not Found)
+    """
+    return render(request, 'errors/404.html', status=404)
+
+def custom_500(request):
+    """
+    Custom handler for 500 errors (Internal Server Error)
+    """
+    return render(request, 'errors/500.html', status=500)

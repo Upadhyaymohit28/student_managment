@@ -124,3 +124,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEBUG = False  # Ensure debug is set to False in production
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'yourdomain.com']  # Replace with your allowed hosts
+
+
