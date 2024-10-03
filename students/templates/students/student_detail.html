@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+    <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+    <p><strong>Email:</strong> {{ student.email }}</p>
+    <p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
+    <p><strong>Enrollment Date:</strong> {{ student.enrollment_date }}</p>
+    <p><strong>Grade:</strong> {{ student.grade }}</p>
+    <a href="{% url 'edit_student' student.id %}">Edit Student</a>
+    <a href="{% url 'student_list' %}">Back to List</a>
+</body>
+</html>
