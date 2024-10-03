@@ -1,6 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Student
 from .forms import StudentForm
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def add_student(request):
+    # View code here
+    pass
+
+@login_required
+def edit_student(request, student_id):
+    # View code here
+    pass
+
 
 # View to display the list of students
 def student_list(request):
