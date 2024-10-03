@@ -4,41 +4,66 @@
     <title>Student List</title>
 </head>
 <body>
-    <h1>Student List</h1>
+    <!-- Main Title -->
+    <h1 style="text-align: center;">Student List</h1>
+    <hr>
 
     <!-- Search Form -->
-    <form method="GET" action="{% url 'student_list' %}">
-        <input type="text" name="q" placeholder="Search by name..." value="{{ query }}">
-        <button type="submit">Search</button>
-    </form>
-
-    <!-- Display Students -->
-    <ul>
-        {% for student in page_obj %}
-            <li>
-                <a href="{% url 'student_detail' student.id %}">
-                    {{ student.first_name }} {{ student.last_name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <!-- Pagination Controls -->
-    <div>
-        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <form method="GET" action="{% url 'student_list' %}" style="display: inline-block;">
+            <input type="text" name="q" placeholder="Search by name..." value="{{ query }}" style="padding: 5px;">
+            <button type="submit" style="padding: 5px 10px;">Search</button>
+        </form>
     </div>
 
-    <div>
-        {% if page_obj.has_previous %}
-            <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
+    <!-- Table for Displaying Students -->
+    <table border="1" cellpadding="10" cellspacing="0" style="width: 80%; margin: auto; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in page_obj %}
+                <tr>
+                    <td>{{ student.first_name }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'student_detail' student.id %}">View Details</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-        {% if page_obj.has_next %}
-            <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
+    <!-- Pagination Controls -->
+    <div style="text-align: center; margin-top: 20px;">
+        <div>
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        </div>
+
+        <div style="display: inline-block; margin-top: 10px;">
+            {% if page_obj.has_previous %}
+                <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}" style="padding: 5px 10px; border: 1px solid #ddd; margin-right: 5px; text-decoration: none;">Previous</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?q={{ query }}&page={{ page_obj.next_page_number }}" style="padding: 5px 10px; border: 1px solid #ddd; margin-left: 5px; text-decoration: none;">Next</a>
+            {% endif %}
+        </div>
     </div>
 
     <!-- Link to Add New Student -->
-    <a href="{% url 'add_student' %}">Add New Student</a>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'add_student' %}" style="padding: 10px 20px; border: 1px solid #007bff; text-decoration: none;">Add New Student</a>
+    </div>
+
+    <!-- Footer Separator -->
+    <hr>
+    <footer style="text-align: center; margin-top: 20px;">
+        <p>&copy; 2024 Student Management System</p>
+    </footer>
 </body>
 </html>
+
